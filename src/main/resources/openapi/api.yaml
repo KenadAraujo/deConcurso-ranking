@@ -1,0 +1,166 @@
+openapi: 3.0.3
+info:
+  title: API deConcursos para ranking
+  version: 1.0.0
+
+tags:
+  - name: organizadora
+    description: >
+      Endpoints responsáveis pelo gerenciamento das **organizadoras de concursos**.  
+      Permitem cadastrar, consultar, atualizar e remover informações sobre instituições 
+      que realizam concursos públicos, como **CESPE**, **FGV**, **IBFC**, entre outras.  
+      Esses endpoints são fundamentais para alimentar o ranking de concursos do sistema.
+
+paths:
+  /organizadora:
+    get:
+      summary: Lista todas as Organizadoras
+      description: >
+        Retorna uma lista de organizadoras cadastradas.  
+        É possível filtrar pelo **nome** da organizadora de forma opcional.
+      operationId: listar
+      tags:
+        - organizadora
+      parameters:
+        - name: nome
+          in: query
+          required: false
+          description: Filtro opcional para buscar organizadoras pelo nome
+          schema:
+            type: string
+            example: CESPE
+      responses:
+        '200':
+          description: Lista de organizadoras
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Organizadora'
+
+    post:
+      summary: Cadastra uma nova Organizadora
+      operationId: cadastrar
+      tags:
+        - organizadora
+      requestBody:
+        required: true
+        description: Payload contendo os dados da nova Organizadora
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organizadora'
+      responses:
+        '201':
+          description: Organizadora criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organizadora'
+
+  /organizadora/{id}:
+    get:
+      summary: Obtém uma Organizadora pelo ID
+      operationId: buscarPorId
+      tags:
+        - organizadora
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da Organizadora
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Organizadora encontrada
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organizadora'
+        '404':
+          description: Organizadora não encontrada
+
+    put:
+      summary: Atualiza uma Organizadora existente
+      operationId: atualizar
+      tags:
+        - organizadora
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da Organizadora a ser atualizada
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        description: Payload contendo os novos dados da Organizadora
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Organizadora'
+      responses:
+        '200':
+          description: Organizadora atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Organizadora'
+
+    delete:
+      summary: Exclui uma Organizadora pelo ID
+      operationId: excluir
+      tags:
+        - organizadora
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID da Organizadora a ser excluída
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Organizadora excluída com sucesso
+        '404':
+          description: Organizadora não encontrada
+
+components:
+  schemas:
+    MensagemErro:
+      type: object
+      properties:
+        codErro:
+          type: string
+          example: [ER001]
+        nome:
+          type: string
+          example: Erro de id invalido
+        descricao:
+          type: string
+          example: O id não foi encontrado na base de dados;
+
+    Organizadora:
+      type: object
+      required:
+        - nome
+        - sigla
+      properties:
+        id:
+          type: integer
+          readOnly: true
+          example: 1
+        nome:
+          type: string
+          example: CESPE
+        sigla:
+          type: string
+          example: CEBRASPE
+        url:
+          type: string
+          example: https://www.cebraspe.org.br
+        logo:
+          type: string
+          example: https://cdn.cebraspe.org/logo.png
