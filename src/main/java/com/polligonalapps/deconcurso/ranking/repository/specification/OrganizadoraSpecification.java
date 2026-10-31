@@ -16,6 +16,9 @@ public class OrganizadoraSpecification {
             if(Objects.nonNull(organizadora.getNome()) && !organizadora.getNome().isBlank()){
                 predicates.add(cb.like(cb.lower(root.get("nome")), "%" + organizadora.getNome().toLowerCase() + "%"));
             }
+            if(Objects.nonNull(organizadora.getSigla()) && !organizadora.getSigla().isBlank()){
+                predicates.add(cb.like(cb.lower(root.get("sigla")), "%" + organizadora.getSigla().toLowerCase() + "%"));
+            }
             return cb.and(predicates.toArray(new Predicate[0]));
         };
     }

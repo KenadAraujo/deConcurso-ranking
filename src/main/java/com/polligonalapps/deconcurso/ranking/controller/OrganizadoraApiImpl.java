@@ -16,10 +16,13 @@ public class OrganizadoraApiImpl implements OrganizadoraApi{
     private OrganizadoraService service;
 
     @Override
-    public ResponseEntity<List<Organizadora>> listar(String nome) {
+    public ResponseEntity<List<Organizadora>> listar(String nome, String sigla) {
         Organizadora organizadora = new Organizadora();
         if(Objects.nonNull(nome)){
             organizadora.setNome(nome);
+        }
+        if(Objects.nonNull(sigla)){
+            organizadora.setSigla(sigla);
         }
         return ResponseEntity.ok(service.listar(organizadora));
     }

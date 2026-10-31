@@ -7,7 +7,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -39,7 +38,6 @@ public class Organizadora implements Serializable {
     @Column(length = 255)
     private String url;
 
-    @Lob
     @Basic(fetch = FetchType.LAZY)
     @Column(name = "logo", columnDefinition = "BYTEA")
     private byte[] logo;

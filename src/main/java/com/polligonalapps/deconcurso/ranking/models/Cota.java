@@ -22,7 +22,7 @@ import java.io.Serializable;
 @Setter
 @Builder
 @Entity
-@Table(name = "cargo")
+@Table(name = "cota")
 public class Cota  implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

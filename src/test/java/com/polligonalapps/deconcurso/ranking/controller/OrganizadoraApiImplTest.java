@@ -30,7 +30,7 @@ class OrganizadoraApiImplTest {
     // Teste para o método listar()
     @Test
     void deveListarOrganizadoras() {
-        ResponseEntity<List<Organizadora>> resposta = controller.listar(null);
+        ResponseEntity<List<Organizadora>> resposta = controller.listar(null, null);
 
         assertNotNull(resposta);
         assertEquals(200, resposta.getStatusCodeValue());

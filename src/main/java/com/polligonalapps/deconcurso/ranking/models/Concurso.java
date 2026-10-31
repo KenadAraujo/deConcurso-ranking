@@ -18,6 +18,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -35,6 +36,12 @@ public class Concurso {
 
     @Column(name = "ano")
     private Integer ano;
+
+    @Column(name = "data_concurso")
+    private LocalDate dataConcurso;
+
+    @Column(name = "link_concurso")
+    private String linkConcurso;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "organizadora_id", nullable = false)

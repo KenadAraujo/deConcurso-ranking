@@ -28,7 +28,14 @@ paths:
           description: Filtro opcional para buscar organizadoras pelo nome
           schema:
             type: string
-            example: CESPE
+            example: Fundacao Getulio Vargas
+        - name: sigla
+          in: query
+          required: false
+          description: Filtro opcional para buscar organizadoras pela sigla
+          schema:
+            type: string
+            example: FGV
       responses:
         '200':
           description: Lista de organizadoras

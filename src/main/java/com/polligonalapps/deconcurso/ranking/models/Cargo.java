@@ -37,13 +37,13 @@ public class Cargo implements Serializable {
     @Column(nullable = false, length = 100)
     private String nome;
 
-    @Column(length = 255)
+    @Column(length = 600,nullable = true)
     private String descricao;
 
     @Column(name = "qtd_vagas")
     private Integer qtdVagas;
 
-    @Column(name = "qtd_inscritos")
+    @Column(name = "qtd_inscritos", nullable = true)
     private Integer qtdInscritos;
 
     @Column(name = "salario")

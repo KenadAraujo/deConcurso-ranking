@@ -31,10 +31,10 @@ public class Etapa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(name = "descricao")
     private String descricao;
 
-    @Column
+    @Column(name = "data")
     private LocalDate data;
 
     @ManyToOne(fetch = FetchType.LAZY)

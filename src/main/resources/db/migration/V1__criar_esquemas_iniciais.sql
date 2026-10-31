@@ -1,3 +1,6 @@
+-- Esquema inicial alinhado aos mapeamentos JPA do pacote models.
+-- Em bancos onde esta V1 ja foi aplicada, use uma nova migracao para evoluir o esquema.
+
 -- ==========================================
 -- TABELA: ORGANIZADORA
 -- ==========================================
@@ -36,9 +39,12 @@ CREATE TABLE cronograma (
 CREATE TABLE concurso (
     id BIGSERIAL PRIMARY KEY,
     ano INTEGER,
+    data_concurso DATE,
+    link_concurso VARCHAR(255),
     organizadora_id BIGINT NOT NULL,
     orgao_id BIGINT NOT NULL,
-    cronograma_id BIGINT
+    cronograma_id BIGINT,
+    CONSTRAINT uk_concurso_cronograma UNIQUE (cronograma_id)
 );
 
 ALTER TABLE concurso
@@ -59,10 +65,10 @@ ALTER TABLE concurso
 CREATE TABLE cargo (
     id BIGSERIAL PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
-    descricao VARCHAR(255),
+    descricao VARCHAR(600),
     qtd_vagas INTEGER,
     qtd_inscritos INTEGER,
-    salario NUMERIC(15,2),
+    salario NUMERIC(38,2),
     escolaridade VARCHAR(20),
     orgao_id BIGINT NOT NULL,
     concurso_id BIGINT NOT NULL
@@ -84,7 +90,13 @@ CREATE TABLE prova (
     descricao VARCHAR(255),
     pontuacao_minima INTEGER,
     pontuacao_maxima INTEGER,
+    peso INTEGER,
+    quantidade_questoes INTEGER,
     tipo_prova VARCHAR(20),
+    criterio_minimo VARCHAR(20),
+    tipo_escolha VARCHAR(30),
+    erradas_anulam_questoes BOOLEAN,
+    calculo_especial BOOLEAN,
     cargo_id BIGINT NOT NULL
 );
 
@@ -100,7 +112,7 @@ CREATE TABLE grupo_disciplina (
     descricao VARCHAR(255) NOT NULL,
     pontuacao_minima INTEGER,
     pontuacao_maxima INTEGER,
-    reprovar_por_pontuacao_minima BOOLEAN NOT NULL,
+    reprovar_por_pontuacao_minima BOOLEAN,
     prova_id BIGINT NOT NULL
 );
 
@@ -148,7 +160,7 @@ ALTER TABLE etapa
 -- ==========================================
 CREATE TABLE cota (
     id BIGSERIAL PRIMARY KEY,
-    tipo_cota VARCHAR(20),
+    tipo_cota VARCHAR(255),
     qtd_vagas_totais INTEGER,
     qtd_vagas_cotas INTEGER,
     porcentagem_legal INTEGER,

@@ -1,5 +1,7 @@
 package com.polligonalapps.deconcurso.ranking.models;
 
+import com.polligonalapps.deconcurso.ranking.models.constants.CriterioMinimo;
+import com.polligonalapps.deconcurso.ranking.models.constants.TipoEscolha;
 import com.polligonalapps.deconcurso.ranking.models.constants.TipoProva;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -43,13 +45,29 @@ public class Prova {
     @Column(name = "pontuacao_maxima")
     private Integer pontuacaoMaxima;
 
+    @Column(name = "peso")
+    private Integer peso;
+
+    @Column(name = "quantidade_questoes")
+    private Integer quantidadeQuestoes;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "tipo_prova",length = 20)
     private TipoProva tipoProva;
 
-    //TODO tipo de escolha
-    //TODO erradas anulam prova
-    //TODO calculo especial
+    @Enumerated(EnumType.STRING)
+    @Column(name = "criterio_minimo", length = 20)
+    private CriterioMinimo criterioMinimo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_escolha", length = 30)
+    private TipoEscolha tipoEscolha;
+
+    @Column(name = "erradas_anulam_questoes")
+    private Boolean erradasAnulamQuestoes;
+
+    @Column(name = "calculo_especial")
+    private Boolean calculoEspecial;
 
     @OneToMany(mappedBy = "prova", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private Set<GrupoDisciplina> gruposDisciplinas;
